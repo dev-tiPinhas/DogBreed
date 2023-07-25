@@ -9,48 +9,89 @@ import Foundation
 import UIKit
 
 protocol APIServiceProtocol {
-    func fetchBreeds(with page: Int, completion:  @escaping (Result<[Breed],Error>) -> Void)
+    func fetchDogBreeds(with page: Int, limit: Int, completion: @escaping (Result<[Breed], Error>) -> Void)
+    func fetchAllBreeds(completion: @escaping (Result<[Breed],Error>) -> Void)
 }
 
-public class APIService: APIServiceProtocol {
-    let breedsURL: String = "https://api.thedogapi.com/v1/breeds"
+final class APIService: APIServiceProtocol {
+    let error: NSError = NSError(domain: "", code: -1, userInfo: nil)
     
-    let stringlimit: String = "limit"
-    let limit: String = "10"
+    private let urlSession: URLSession
     
-    let stringAPIKey: String = "api_key"
-    let APIKey: String = "live_28SPgO8FJ5nexbIuizwMuhLiH2aXau9anReZasO5KpqfCRuc3U0X2ztpNCYrX1mr"
+    init(urlSession: URLSession = URLSession.shared) {
+        self.urlSession = urlSession
+    }
     
-    ///Used to control if we already reached the end of the API  list
-    var next: Int = 0
-    
-    /// Used to retrieve the list of breeds.
-    /// - Parameters:
-    /// - page: The first elements to be shown, from here only after the we scroll again more elements are fetched
-    func fetchBreeds(with page: Int, completion:  @escaping (Result<[Breed],Error>) -> Void) {
-        guard let url = URL(string: breedsURL)?.appending(stringlimit, value: limit) else { return }
+    func fetchDogBreeds(with page: Int, limit: Int, completion: @escaping (Result<[Breed], Error>) -> Void) {
+        guard var url = URL(string: Endpoints.baseURL)
+        else {
+            completion(.failure(error))
+            return
+        }
         
-        URLSession.shared.dataTask(with: url.appending(stringAPIKey, value: APIKey)) { (data, response, error) in
+        url = url.appending(Endpoints.stringLimit, value: String(format: Endpoints.limit, limit))
+        url = url.appending(Endpoints.stringPage, value: String(format: Endpoints.page, page))
+        
+        let task = urlSession.dataTask(with: url.appending(Endpoints.stringAPIKey, value: Endpoints.APIKey)) { (data, response, error) in
             
-            guard let data, error == nil else {
-                completion(.failure(error!))
-                debugPrint(error!)
+            guard let data,
+                  error == nil
+            else {
+                completion(.failure(self.error))
+                debugPrint(self.error)
                 return
             }
             
-            var decodedData: [Breed]?
+            var result: [Breed]?
             do {
-                decodedData = try JSONDecoder().decode([Breed].self, from: data)
+                result = try JSONDecoder().decode([Breed].self, from: data)
             } catch {
                 completion(.failure(error))
                 debugPrint(error)
             }
             
-            guard let decodedData else {
+            guard let result else {
                 return
             }
             
-            completion(.success(decodedData))
-        }.resume()
+            completion(.success(result))
+        }
+        
+        task.resume()
+    }
+    
+    /// Used to retrieve the entire list of breeds.
+    func fetchAllBreeds(completion: @escaping (Result<[Breed], Error>) -> Void) {
+        guard let url = URL(string: Endpoints.baseURL) else {
+            completion(.failure(error))
+            return
+        }
+        
+        let task = urlSession.dataTask(with: url.appending(Endpoints.stringAPIKey, value: Endpoints.APIKey)) { (data, response, error) in
+            
+            guard let data,
+                  error == nil
+            else {
+                completion(.failure(self.error))
+                debugPrint(self.error)
+                return
+            }
+            
+            var result: [Breed]?
+            do {
+                result = try JSONDecoder().decode([Breed].self, from: data)
+            } catch {
+                completion(.failure(error))
+                debugPrint(error)
+            }
+            
+            guard let result else {
+                return
+            }
+            
+            completion(.success(result))
+        }
+        
+        task.resume()
     }
 }

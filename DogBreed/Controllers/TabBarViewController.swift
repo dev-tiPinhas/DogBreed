@@ -17,8 +17,13 @@ final class TabBarViewController: UITabBarController {
         setup()
         setupViewControllers()
         
-        test.fetchBreeds(with: 0) { (results) in
+        test.fetchDogBreeds(with: 0, limit: 10) { (results) in
             // we already have the breeds (with only one page...)
+            print(results)
+        }
+        
+        test.fetchAllBreeds { (results) in
+            // will be used to populate search results (SearchDogBreedViewController)
             print(results)
         }
     }
