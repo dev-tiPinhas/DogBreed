@@ -42,11 +42,12 @@ final class DogListViewModel: DogListViewModelProtocol {
         // TODO: display loading
         pageControl += 1
         apiService.fetchDogBreeds(with: pageControl, limit: DogListViewModel.limitOfItems) { [weak self] results in
+            guard let self else { return }
             // TODO: stop loading
             switch results {
             case .success(let breeds):
-                self?.items = breeds
-                // TODO: show dogs
+                self.items = breeds
+                self.events.handleDogsResults?(self.items)
             case .failure(let error):
                 debugPrint(error)
             }
