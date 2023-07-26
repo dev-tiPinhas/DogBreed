@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		4A28F0032A70FCF600C18750 /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A28F0022A70FCF500C18750 /* Labels.swift */; };
 		4A28F0052A70FD8E00C18750 /* LocalizableKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A28F0042A70FD8E00C18750 /* LocalizableKeys.swift */; };
+		4A28F0082A71083E00C18750 /* DogListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A28F0072A71083E00C18750 /* DogListViewModel.swift */; };
+		4A28F00A2A710B8A00C18750 /* DogListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A28F0092A710B8A00C18750 /* DogListCellViewModel.swift */; };
 		4A5959622A705651007A8A69 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 4A5959612A705651007A8A69 /* Kingfisher */; };
 		4A5959652A7056F5007A8A69 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5959642A7056F5007A8A69 /* ImageFetcher.swift */; };
 		4A59596A2A7070EF007A8A69 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A59596C2A7070EF007A8A69 /* Localizable.strings */; };
@@ -48,6 +50,8 @@
 /* Begin PBXFileReference section */
 		4A28F0022A70FCF500C18750 /* Labels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Labels.swift; sourceTree = "<group>"; };
 		4A28F0042A70FD8E00C18750 /* LocalizableKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizableKeys.swift; sourceTree = "<group>"; };
+		4A28F0072A71083E00C18750 /* DogListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogListViewModel.swift; sourceTree = "<group>"; };
+		4A28F0092A710B8A00C18750 /* DogListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogListCellViewModel.swift; sourceTree = "<group>"; };
 		4A5959642A7056F5007A8A69 /* ImageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
 		4A59596B2A7070EF007A8A69 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A800EE142A6EBEA900D15B9A /* APIServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServices.swift; sourceTree = "<group>"; };
@@ -103,6 +107,15 @@
 				4A28F0042A70FD8E00C18750 /* LocalizableKeys.swift */,
 			);
 			path = Labels;
+			sourceTree = "<group>";
+		};
+		4A28F0062A71081500C18750 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				4A28F0072A71083E00C18750 /* DogListViewModel.swift */,
+				4A28F0092A710B8A00C18750 /* DogListCellViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		4A5959632A7056C4007A8A69 /* ImageFetcher */ = {
@@ -162,10 +175,11 @@
 		A883520C2A6A9FBD0058695A /* DogBreed */ = {
 			isa = PBXGroup;
 			children = (
+				A800EE162A6EC55900D15B9A /* Extensions */,
 				4A28F0012A70FCE500C18750 /* Labels */,
 				4A5959632A7056C4007A8A69 /* ImageFetcher */,
 				A80CF2DC2A700D31008B7422 /* Controllers */,
-				A800EE162A6EC55900D15B9A /* Extensions */,
+				4A28F0062A71081500C18750 /* ViewModels */,
 				A88352422A6AA7B20058695A /* Models */,
 				A883523D2A6AA3FC0058695A /* WebServices */,
 				A883520D2A6A9FBD0058695A /* AppDelegate.swift */,
@@ -357,9 +371,11 @@
 				A88352442A6AA7C10058695A /* Breed.swift in Sources */,
 				A88352102A6A9FBD0058695A /* SceneDelegate.swift in Sources */,
 				4A28F0052A70FD8E00C18750 /* LocalizableKeys.swift in Sources */,
+				4A28F0082A71083E00C18750 /* DogListViewModel.swift in Sources */,
 				A80CF2E02A700E8E008B7422 /* SearchDogBreedViewController.swift in Sources */,
 				A80CF2E22A701F9B008B7422 /* Endpoints.swift in Sources */,
 				A80CF2DE2A700E39008B7422 /* DogBreedListViewController.swift in Sources */,
+				4A28F00A2A710B8A00C18750 /* DogListCellViewModel.swift in Sources */,
 				4A5959652A7056F5007A8A69 /* ImageFetcher.swift in Sources */,
 				4A28F0032A70FCF600C18750 /* Labels.swift in Sources */,
 			);
