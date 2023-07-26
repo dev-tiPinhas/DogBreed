@@ -9,23 +9,26 @@ import Foundation
 import UIKit
 
 final class TabBarViewController: UITabBarController {
+    
+    private let labels: LabelsProtocol
+    
+    // MARK: Initialiazers
+    
+    init(labels: LabelsProtocol = Labels()) {
+        self.labels = labels
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: Life Cycle
-    let test: APIServiceProtocol = APIService()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
         setupViewControllers()
-        
-        test.fetchDogBreeds(with: 0, limit: 10) { (results) in
-            // we already have the breeds (with only one page...)
-            print(results)
-        }
-        
-        test.fetchAllBreeds { (results) in
-            // will be used to populate search results (SearchDogBreedViewController)
-            print(results)
-        }
     }
     
     // MARK: Setup
@@ -41,11 +44,11 @@ final class TabBarViewController: UITabBarController {
     private func setupViewControllers() {
         let dogBreedListViewController = UINavigationController(rootViewController: DogBreedListViewController())
         dogBreedListViewController.tabBarItem.image = UIImage(systemName: "list.bullet.below.rectangle")
-        dogBreedListViewController.tabBarItem.title = "Dogs List"
+        dogBreedListViewController.tabBarItem.title = labels.getLabel(with: LocalizableKeys.TabBar.titleButton1)
         
         let searchDogBreedViewController = UINavigationController(rootViewController: SearchDogBreedViewController())
         searchDogBreedViewController.tabBarItem.image = UIImage(systemName: "magnifyingglass")
-        searchDogBreedViewController.tabBarItem.title = "Search Dogs"
+        searchDogBreedViewController.tabBarItem.title = labels.getLabel(with: LocalizableKeys.TabBar.titleButton2)
         
         viewControllers = [
             dogBreedListViewController,

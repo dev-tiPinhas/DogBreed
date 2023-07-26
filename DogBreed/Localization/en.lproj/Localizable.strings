@@ -8,3 +8,10 @@
 
 // MARK: TABBAR
 
+"tabBarButton1.title" = "Dogs List";
+"tabBarButton2.title" = "Search Dogs";
+
+// MARK: DOGBREED LIST SCREEN
+
+
+// MARK: SEARCH FOR BREED SCREEN
