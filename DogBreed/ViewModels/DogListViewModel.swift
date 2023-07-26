@@ -9,10 +9,11 @@ import Foundation
 
 protocol DogListViewModelProtocol {
     func fetchBreeds()
+    func makeCellViewModel(for indexPath: IndexPath) -> DogListCellViewModel
+    var events: DogListViewModel.Events { get set }
 }
 
 final class DogListViewModel: DogListViewModelProtocol {
-    
     private let apiService: APIServiceProtocol
     private let labels: LabelsProtocol
     
@@ -21,6 +22,13 @@ final class DogListViewModel: DogListViewModelProtocol {
     
     /// Limit the number of items for request
     private static let limitOfItems: Int = 10
+    
+    /// Completion handlers
+    struct Events {
+        var handleDogsResults: (([Breed]) -> Void)?
+    }
+    
+    var events: Events = Events()
     
     init(
         apiService: APIServiceProtocol = APIService(),
@@ -43,5 +51,14 @@ final class DogListViewModel: DogListViewModelProtocol {
                 debugPrint(error)
             }
         }
+    }
+    
+    func makeCellViewModel(for indexPath: IndexPath) -> DogListCellViewModel {
+        let breed = items[indexPath.row]
+    
+        return DogListCellViewModel(
+            image: breed.image,
+            title: breed.name ?? ""
+        )
     }
 }

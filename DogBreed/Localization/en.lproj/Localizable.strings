@@ -12,6 +12,7 @@
 "tabBarButton2.title" = "Search Dogs";
 
 // MARK: DOGBREED LIST SCREEN
-
+"dogsList.title" = "Dogs List"
 
 // MARK: SEARCH FOR BREED SCREEN
+"searchBreeds.title" = "Search"

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct Breed: Codable {
+struct Breed: Codable, Hashable {
     var id: Int?
     var name: String?
     var origin: String?
@@ -18,7 +18,7 @@ struct Breed: Codable {
     var image: Image
 }
 
-struct Image: Codable {
+struct Image: Codable, Hashable {
     var id: String?
     var url: String?
 }
