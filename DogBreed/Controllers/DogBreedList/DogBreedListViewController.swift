@@ -16,23 +16,50 @@ final class DogBreedListViewController: UIViewController {
     private lazy var dataSource: DataSource = makeDataSource()
     
     private lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+        let collectionView = UICollectionView(
+            frame: .zero,
+            collectionViewLayout: UICollectionViewFlowLayout()
+        )
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(DogListCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: DogListCollectionViewCell.self))
+        collectionView.register(
+            DogListCollectionViewCell.self,
+            forCellWithReuseIdentifier: String(describing: DogListCollectionViewCell.self)
+        )
         
         return collectionView
     }()
     
     private lazy var defaultCollectionViewFlowLayout: UICollectionViewFlowLayout = {
        let listCollectionViewFlowLayout = UICollectionViewFlowLayout()
-        // TODO: define the actual flow layout -> later :cry
+        listCollectionViewFlowLayout.scrollDirection = .vertical
+        listCollectionViewFlowLayout.minimumLineSpacing = Constants.collectionViewSpacing
+        listCollectionViewFlowLayout.itemSize = CGSize(
+            width: UIScreen.main.bounds.width - (Constants.collectionViewMargin * 2),
+            height: Constants.defaultItemHeight
+        )
+        
         return listCollectionViewFlowLayout
     }()
     
     private lazy var gridCollectionViewFlowLayout: UICollectionViewFlowLayout = {
        let gridCollectionViewFlowLayout = UICollectionViewFlowLayout()
-        // TODO: define the actual flow layout -> later :cry
+        gridCollectionViewFlowLayout.scrollDirection = .vertical
+        gridCollectionViewFlowLayout.minimumLineSpacing = Constants.collectionViewSpacing
+        gridCollectionViewFlowLayout.minimumInteritemSpacing = Constants.collectionViewSpacing
+        gridCollectionViewFlowLayout.itemSize = CGSize(
+            width: (UIScreen.main.bounds.width - Constants.collectionViewMargin) / 2,
+            height: Constants.gridItemHeight
+        )
+        
         return gridCollectionViewFlowLayout
+    }()
+    
+    private lazy var loadingSpinner: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style:  .large)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        return activityIndicator
     }()
     
     private var isDefaultLayout = true
@@ -58,11 +85,13 @@ final class DogBreedListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupLayout()
         handleEvents()
         viewModel.fetchBreeds()
     }
-    
      
+    // MARK: - Overrides
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         /// Invalidate the layout when changing from List to Grid View
@@ -78,8 +107,9 @@ final class DogBreedListViewController: UIViewController {
         // collectionView stuff
         collectionView.delegate = self
         collectionView.collectionViewLayout = defaultCollectionViewFlowLayout
-        
+         
         view.addSubview(collectionView)
+        view.addSubview(loadingSpinner)
         
         setupViewsAnchors()
     }
@@ -89,15 +119,41 @@ final class DogBreedListViewController: UIViewController {
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
+            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            
+            loadingSpinner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            loadingSpinner.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
     
     private func handleEvents() {
         viewModel.events.handleDogsResults = { [weak self] breeds in
-            DispatchQueue.main.async {
-                // TODO: applySnapshot
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                self.applySnpShot(items: breeds)
             }
+        }
+        
+        viewModel.events.handleLoading = { [weak self] shouldShow in
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                if shouldShow {
+                    self.loadingSpinner.startAnimating()
+                } else {
+                    self.loadingSpinner.stopAnimating()
+                }
+            }
+        }
+    }
+    
+    private func applySnpShot(items: [Breed], animatingDifferences: Bool = true) {
+        var snapshot = Snapshot()
+        
+        snapshot.appendSections([.zero])
+        snapshot.appendItems(items)
+        
+        self.dataSource.apply(snapshot, animatingDifferences: animatingDifferences) {
+            self.collectionView.collectionViewLayout.invalidateLayout()
         }
     }
     
@@ -114,7 +170,7 @@ final class DogBreedListViewController: UIViewController {
     
     private func configureCell(at indexPath: IndexPath, item: Breed) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: DogListCollectionViewCell.self), for: indexPath) as? DogListCollectionViewCell else {
-            preconditionFailure("CellWithReuseIdentifier not recognized")
+            preconditionFailure("reuserIndentifier not recognized")
         }
         
         cell.configureCell(with: viewModel.makeCellViewModel(for: indexPath))

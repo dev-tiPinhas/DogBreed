@@ -10,7 +10,7 @@ import UIKit
 
 protocol DogListCellViewModelProtocol {
     func fetchImage()
-    var title: String { get set }
+    var title: String { get }
     var events: DogListCellViewModel.Events { get set }
 }
 

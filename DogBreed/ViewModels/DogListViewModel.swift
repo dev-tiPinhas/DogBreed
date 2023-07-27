@@ -26,6 +26,7 @@ final class DogListViewModel: DogListViewModelProtocol {
     /// Completion handlers
     struct Events {
         var handleDogsResults: (([Breed]) -> Void)?
+        var handleLoading: ((Bool) -> Void)?
     }
     
     var events: Events = Events()
@@ -39,11 +40,11 @@ final class DogListViewModel: DogListViewModelProtocol {
     }
     
     func fetchBreeds() {
-        // TODO: display loading
+        events.handleLoading?(true)
         pageControl += 1
         apiService.fetchDogBreeds(with: pageControl, limit: DogListViewModel.limitOfItems) { [weak self] results in
             guard let self else { return }
-            // TODO: stop loading
+            self.events.handleLoading?(false)
             switch results {
             case .success(let breeds):
                 self.items = breeds
