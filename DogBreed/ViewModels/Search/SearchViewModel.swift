@@ -11,6 +11,8 @@ import UIKit
 protocol SearchViewModelProtocol {
     var events: SearchViewModel.Events { get set }
     func fetchResults()
+    func numberOfItems() -> Int
+    func search(for breedName: String)
     func makeSearchCellViewModel(with indexpath: IndexPath) -> SearchCellViewModelProtocol
 }
 
@@ -18,7 +20,7 @@ final class SearchViewModel: SearchViewModelProtocol {
     // MARK: Properties
     private let serviceApi: APIServiceProtocol
     private var allItems: [Breed] = []
-    private var itemToFilter: [Breed] = []
+    private var itemsToFilter: [Breed] = []
     
     /// Completion handlers
     struct Events {
@@ -41,20 +43,33 @@ final class SearchViewModel: SearchViewModelProtocol {
         serviceApi.fetchAllBreeds { [weak self] result in
             guard let self else { return }
             
+            self.events.handleLoading?(false)
             switch result {
             case .success(let breeds):
                 self.allItems = breeds
-                self.itemToFilter = breeds
-                self.events.handleResults?(self.itemToFilter)
+                self.itemsToFilter = breeds
+                self.events.handleResults?(self.itemsToFilter)
             case .failure(let error):
                 debugPrint(error)
             }
         }
     }
     
+    func numberOfItems() -> Int {
+        return itemsToFilter.count
+    }
+    
+    func search(for breedName: String) {
+        itemsToFilter = allItems.filter{
+            $0.name?.hasPrefix(breedName) ?? false
+        }
+        
+        events.handleResults?(itemsToFilter)
+    }
+    
     // MARK: Build ViewModels
     func makeSearchCellViewModel(with indexpath: IndexPath) -> SearchCellViewModelProtocol {
-        let breed = itemToFilter[indexpath.row]
+        let breed = itemsToFilter[indexpath.row]
         
         return SearchCellViewModel(
             name: breed.name,

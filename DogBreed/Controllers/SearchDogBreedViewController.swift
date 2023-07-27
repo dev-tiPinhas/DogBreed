@@ -60,8 +60,11 @@ final class SearchDogBreedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupUI()
         setupAnchors()
+        handleEvents()
+        viewModel.fetchResults()
     }
     
     // MARK: Setup
@@ -89,16 +92,52 @@ final class SearchDogBreedViewController: UIViewController {
             loadingSpinner.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
+    
+    private func handleEvents() {
+        /// Handle the fetch of all breeds -> reload table view
+        viewModel.events.handleResults = { [weak self] breeds in
+            guard let self else { return }
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+        
+        /// Handle the loading visibility and animations
+        viewModel.events.handleLoading = { [weak self] shouldShow in
+            DispatchQueue.main.async {
+                guard let self else { return }
+                
+                if shouldShow {
+                    self.loadingSpinner.startAnimating()
+                } else {
+                    self.loadingSpinner.stopAnimating()
+                }
+            }
+        }
+    }
 }
 
 // MARK: UITableViewDelegate & UITableViewDataSource
 extension SearchDogBreedViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0 // go get it in the viewModel
+        return viewModel.numberOfItems()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell(frame: .zero)
+        var cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchBreedTableViewCell.self))
+        
+        if cell == nil {
+            cell = SearchBreedTableViewCell()
+        }
+        
+        guard let cell = cell as? SearchBreedTableViewCell else {
+            preconditionFailure("ReuseIdentifier not recognized")
+        }
+        
+        cell.configureCell(viewModel: viewModel.makeSearchCellViewModel(with:indexPath))
+        
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -109,7 +148,7 @@ extension SearchDogBreedViewController: UITableViewDelegate, UITableViewDataSour
 // MARK:
 extension SearchDogBreedViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        // perform search on ViewModel
+        viewModel.search(for: searchText)
     }
 }
 
