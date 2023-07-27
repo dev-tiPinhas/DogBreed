@@ -47,7 +47,7 @@ final class DogListViewModel: DogListViewModelProtocol {
             self.events.handleLoading?(false)
             switch results {
             case .success(let breeds):
-                self.items = breeds
+                self.items += breeds
                 self.events.handleDogsResults?(self.items)
             case .failure(let error):
                 debugPrint(error)

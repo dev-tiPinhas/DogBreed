@@ -31,8 +31,9 @@ final class APIService: APIServiceProtocol {
         
         url = url.appending(Endpoints.stringLimit, value: String(format: Endpoints.limit, limit))
         url = url.appending(Endpoints.stringPage, value: String(format: Endpoints.page, page))
+        url = url.appending(Endpoints.stringAPIKey, value: Endpoints.APIKey)
         
-        let task = urlSession.dataTask(with: url.appending(Endpoints.stringAPIKey, value: Endpoints.APIKey)) { (data, response, error) in
+        let task = urlSession.dataTask(with: url) { (data, response, error) in
             
             guard let data,
                   error == nil
