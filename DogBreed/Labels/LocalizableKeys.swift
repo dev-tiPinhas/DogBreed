@@ -15,6 +15,8 @@ enum LocalizableKeys {
     
     enum DogsList {
         static let title = "dogsList.title"
+        static let changeListOrderDefault = "dogsList.changeListOrderDefault.button"
+        static let changeListOrderReversed = "dogsList.changeListOrderReversed.button"
     }
     
     enum SearchBreeds {

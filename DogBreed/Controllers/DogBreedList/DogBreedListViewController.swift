@@ -11,6 +11,7 @@ import UIKit
 final class DogBreedListViewController: UIViewController {
     private typealias DataSource = UICollectionViewDiffableDataSource<Int, Breed>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Breed>
+    private typealias OrderType = DogListViewModel.SortType
     
     // MARK: Properties
     private lazy var dataSource: DataSource = makeDataSource()
@@ -58,11 +59,37 @@ final class DogBreedListViewController: UIViewController {
         let activityIndicator = UIActivityIndicatorView(style:  .large)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         
-        
         return activityIndicator
     }()
+
+    private lazy var changeOrderButton: UIBarButtonItem = {
+        let barButton = UIBarButtonItem(
+            image: UIImage(systemName: "arrow.down.circle"),
+            style: .plain,
+            target: self,
+            action: #selector(changeOrderButtonSelected)
+        )
+        
+        barButton.title = labels.getLabel(with: LocalizableKeys.DogsList.changeListOrderDefault)
+        barButton.tintColor = .black
+        
+        return barButton
+    }()
+    
+
+    private lazy var changeCollectionLayoutButton: UIBarButtonItem = {
+        let barButton = UIBarButtonItem(
+            image: UIImage(systemName: "square.grid.3x3.bottommiddle.fill"),
+            style: .plain,
+            target: self,
+            action: #selector(changeCollectionLayoutButtonSelected)
+        )
+        
+        return barButton
+    } ()
     
     private var isDefaultLayout = true
+    private var order: OrderType = .alphabetical
     private let labels: LabelsProtocol
     var viewModel: DogListViewModelProtocol
     
@@ -108,6 +135,9 @@ final class DogBreedListViewController: UIViewController {
         collectionView.delegate = self
         collectionView.collectionViewLayout = defaultCollectionViewFlowLayout
          
+        navigationItem.leftBarButtonItem = changeOrderButton
+        navigationItem.rightBarButtonItem = changeCollectionLayoutButton
+        
         view.addSubview(collectionView)
         view.addSubview(loadingSpinner)
         
@@ -176,5 +206,46 @@ final class DogBreedListViewController: UIViewController {
         cell.configureCell(with: viewModel.makeCellViewModel(for: indexPath))
         return cell
     }
+    
+    // MARK: Selectors
+    
+    @objc
+    private func changeOrderButtonSelected() {
+        viewModel.sortElements(sortType: order == .alphabetical ? OrderType.reversed : OrderType.alphabetical)
+        
+        changeOrderButton.image = order == .alphabetical
+            ? UIImage(systemName: "arrow.up.circle")
+            : UIImage(systemName: "arrow.down.circle")
+        
+        changeOrderButton.title = order == .alphabetical
+            ? labels.getLabel(with: LocalizableKeys.DogsList.changeListOrderReversed)
+            : labels.getLabel(with: LocalizableKeys.DogsList.changeListOrderDefault)
+        
+        order = order == .alphabetical
+            ? OrderType.reversed
+            : OrderType.alphabetical
+    }
+    
+    @objc
+    private func changeCollectionLayoutButtonSelected() {
+        changeCollectionLayoutButton.isEnabled = true
+        isDefaultLayout = !isDefaultLayout
+        
+        changeCollectionLayoutButton.image = isDefaultLayout
+            ? UIImage(systemName: "square.grid.3x3.bottommiddle.fill")
+            : UIImage(systemName: "list.triangle")
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            
+            self.collectionView.startInteractiveTransition(
+                to: self.isDefaultLayout ? self.defaultCollectionViewFlowLayout : self.gridCollectionViewFlowLayout
+            ) { [weak self] completed, _ in
+                self?.changeCollectionLayoutButton.isEnabled = completed
+            }
+            self.collectionView.finishInteractiveTransition()
+        }
+    }
 }
+
 

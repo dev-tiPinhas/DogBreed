@@ -9,6 +9,7 @@ import Foundation
 
 protocol DogListViewModelProtocol {
     func fetchBreeds()
+    func sortElements(sortType: DogListViewModel.SortType)
     func makeCellViewModel(for indexPath: IndexPath) -> DogListCellViewModel
     var events: DogListViewModel.Events { get set }
 }
@@ -62,5 +63,32 @@ final class DogListViewModel: DogListViewModelProtocol {
             image: breed.image,
             title: breed.name ?? ""
         )
+    }
+    
+    func sortElements(sortType: SortType) {
+        sortElements(with: sortType)
+    }
+    
+    // MARK: Private Functions
+    
+    private func sortElements(with sortType: SortType) {
+        switch sortType {
+        case .alphabetical:
+            items = items.sorted { $0.name ?? "" < $1.name ?? "" }
+        case .reversed:
+            items = items.sorted { $0.name ?? "" > $1.name ?? "" }
+        default:
+            return
+        }
+        
+        self.events.handleDogsResults?(self.items)
+    }
+}
+
+extension DogListViewModel {
+    enum SortType {
+        case alphabetical
+        case reversed
+        case none
     }
 }

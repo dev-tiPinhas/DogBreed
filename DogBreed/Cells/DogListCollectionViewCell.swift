@@ -69,7 +69,9 @@ final class DogListCollectionViewCell: UICollectionViewCell {
             mainView.topAnchor.constraint(equalTo: topAnchor, constant: 15),
             mainView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 15),
             mainView.leftAnchor.constraint(equalTo: leftAnchor, constant: 15),
-            mainView.rightAnchor.constraint(equalTo: rightAnchor, constant: 15)
+            mainView.rightAnchor.constraint(equalTo: rightAnchor, constant: -15),
+            
+            titleLabel.heightAnchor.constraint(equalToConstant: 30)
         ])
         
         mainView.addArrangedSubview(imageView)

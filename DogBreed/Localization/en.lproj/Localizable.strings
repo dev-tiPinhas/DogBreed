@@ -13,6 +13,8 @@
 
 // MARK: DOGBREED LIST SCREEN
 "dogsList.title" = "Dogs List";
+"dogsList.changeListOrderDefault.button" = "A-Z";
+"dogsList.changeListOrderReversed.button" = "Z-A";
 
 // MARK: SEARCH FOR BREED SCREEN
 "searchBreeds.title" = "Search";
