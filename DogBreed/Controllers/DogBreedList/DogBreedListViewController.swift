@@ -71,7 +71,6 @@ final class DogBreedListViewController: UIViewController {
         )
         
         barButton.title = labels.getLabel(with: LocalizableKeys.DogsList.changeListOrderDefault)
-        barButton.tintColor = .black
         
         return barButton
     }()

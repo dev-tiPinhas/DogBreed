@@ -16,7 +16,7 @@ final class DogListCollectionViewCell: UICollectionViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .fill
-        stackView.spacing = 15
+        stackView.spacing = 0
         stackView.alignment = .center
         
         return stackView
@@ -27,6 +27,7 @@ final class DogListCollectionViewCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.backgroundColor = .clear
+        label.numberOfLines = 0
         
         return label
     }()
@@ -35,7 +36,6 @@ final class DogListCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-        imageView.layer.cornerRadius = 15
         
         return imageView
     }()
@@ -46,6 +46,7 @@ final class DogListCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
+        initialSetup()
         setupConstraints()
     }
     
@@ -61,18 +62,24 @@ final class DogListCollectionViewCell: UICollectionViewCell {
     }
     
     // MARK: Setup functions
+    private func initialSetup() {
+        backgroundColor = .quaternaryLabel
+        layer.cornerRadius = 20
+        clipsToBounds = true
+    }
     
     private func setupConstraints() {
         addSubview(mainView)
         
         NSLayoutConstraint.activate([
             mainView.topAnchor.constraint(equalTo: topAnchor, constant: 15),
-            mainView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 15),
+            mainView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
             mainView.leftAnchor.constraint(equalTo: leftAnchor, constant: 15),
             mainView.rightAnchor.constraint(equalTo: rightAnchor, constant: -15),
             
-            titleLabel.heightAnchor.constraint(equalToConstant: 30)
+            titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 30)
         ])
+        
         
         mainView.addArrangedSubview(imageView)
         mainView.addArrangedSubview(titleLabel)
