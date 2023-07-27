@@ -18,3 +18,4 @@
 
 // MARK: SEARCH FOR BREED SCREEN
 "searchBreeds.title" = "Search";
+"searchBreeds.searchPlaceHolder" = "Search for a Breed name";

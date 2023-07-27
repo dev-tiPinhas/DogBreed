@@ -14,6 +14,8 @@
 		4A5959622A705651007A8A69 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 4A5959612A705651007A8A69 /* Kingfisher */; };
 		4A5959652A7056F5007A8A69 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5959642A7056F5007A8A69 /* ImageFetcher.swift */; };
 		4A59596A2A7070EF007A8A69 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A59596C2A7070EF007A8A69 /* Localizable.strings */; };
+		4AA6EFD32A72E1E900387951 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA6EFD22A72E1E900387951 /* SearchViewModel.swift */; };
+		4AA6EFD52A72E68600387951 /* SearchCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA6EFD42A72E68600387951 /* SearchCellViewModel.swift */; };
 		4AAA5C812A71A4EA00531B9F /* DogListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAA5C802A71A4EA00531B9F /* DogListCollectionViewCell.swift */; };
 		4AAA5C852A71AE0300531B9F /* DogBreedListViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAA5C842A71AE0300531B9F /* DogBreedListViewController+Extension.swift */; };
 		A800EE152A6EBEA900D15B9A /* APIServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = A800EE142A6EBEA900D15B9A /* APIServices.swift */; };
@@ -56,6 +58,8 @@
 		4A28F0092A710B8A00C18750 /* DogListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogListCellViewModel.swift; sourceTree = "<group>"; };
 		4A5959642A7056F5007A8A69 /* ImageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
 		4A59596B2A7070EF007A8A69 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4AA6EFD22A72E1E900387951 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		4AA6EFD42A72E68600387951 /* SearchCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCellViewModel.swift; sourceTree = "<group>"; };
 		4AAA5C802A71A4EA00531B9F /* DogListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogListCollectionViewCell.swift; sourceTree = "<group>"; };
 		4AAA5C842A71AE0300531B9F /* DogBreedListViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DogBreedListViewController+Extension.swift"; sourceTree = "<group>"; };
 		A800EE142A6EBEA900D15B9A /* APIServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServices.swift; sourceTree = "<group>"; };
@@ -116,6 +120,7 @@
 		4A28F0062A71081500C18750 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				4AA6EFD12A72E1D900387951 /* Search */,
 				4A28F0072A71083E00C18750 /* DogListViewModel.swift */,
 				4A28F0092A710B8A00C18750 /* DogListCellViewModel.swift */,
 			);
@@ -136,6 +141,15 @@
 				4A59596C2A7070EF007A8A69 /* Localizable.strings */,
 			);
 			path = Localization;
+			sourceTree = "<group>";
+		};
+		4AA6EFD12A72E1D900387951 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				4AA6EFD22A72E1E900387951 /* SearchViewModel.swift */,
+				4AA6EFD42A72E68600387951 /* SearchCellViewModel.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		4AAA5C7F2A71A4C700531B9F /* Cells */ = {
@@ -400,7 +414,9 @@
 				4AAA5C852A71AE0300531B9F /* DogBreedListViewController+Extension.swift in Sources */,
 				A80CF2DE2A700E39008B7422 /* DogBreedListViewController.swift in Sources */,
 				4A28F00A2A710B8A00C18750 /* DogListCellViewModel.swift in Sources */,
+				4AA6EFD32A72E1E900387951 /* SearchViewModel.swift in Sources */,
 				4A5959652A7056F5007A8A69 /* ImageFetcher.swift in Sources */,
+				4AA6EFD52A72E68600387951 /* SearchCellViewModel.swift in Sources */,
 				4A28F0032A70FCF600C18750 /* Labels.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

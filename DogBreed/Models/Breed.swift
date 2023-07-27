@@ -6,16 +6,39 @@
 //
 
 import Foundation
-import UIKit
 
 struct Breed: Codable, Hashable {
-    var id: Int?
-    var name: String?
-    var origin: String?
-    var temperament: String?
-    var breed_group: String?
-    var bred_for: String?
-    var image: Image
+    let id: Int?
+    let name: String?
+    let origin: String?
+    let temperament: String?
+    let breedGroup: BreedGroup?
+    let bredFor: String?
+    let image: Image
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case origin
+        case temperament
+        case breedGroup = "breed_group"
+        case bredFor = "bred_for"
+        case image
+    }
+}
+
+// MARK: Breed Group
+
+enum BreedGroup: String, Codable, Hashable {
+    case herding = "Herding"
+    case hound = "Hound"
+    case mixed = "Mixed"
+    case nonSporting = "Non-Sporting"
+    case sporting = "Sporting"
+    case terrier = "Terrier"
+    case toy = "Toy"
+    case working = "Working"
+    case empty = ""
 }
 
 struct Image: Codable, Hashable {
