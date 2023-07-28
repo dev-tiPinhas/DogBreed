@@ -37,6 +37,12 @@
 		A88352412A6AA64A0058695A /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88352402A6AA64A0058695A /* TabBarViewController.swift */; };
 		A88352442A6AA7C10058695A /* Breed.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88352432A6AA7C10058695A /* Breed.swift */; };
 		A88F63A62A73D14B003624B0 /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88F63A52A73D14B003624B0 /* UIAlertController+Extensions.swift */; };
+		A88F63BA2A741ADF003624B0 /* MockAPIServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88F63B92A741ADF003624B0 /* MockAPIServices.swift */; };
+		A88F63BC2A741C54003624B0 /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88F63BB2A741C54003624B0 /* MockURLProtocol.swift */; };
+		A88F63BE2A741DFC003624B0 /* Breed+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88F63BD2A741DFC003624B0 /* Breed+Stub.swift */; };
+		A88F63C32A742537003624B0 /* BreedJSONMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88F63C22A742537003624B0 /* BreedJSONMock.swift */; };
+		A88F63C62A742BFD003624B0 /* MockImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88F63C52A742BFD003624B0 /* MockImageFetcher.swift */; };
+		A88F63CA2A742C77003624B0 /* ImageFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88F63C92A742C77003624B0 /* ImageFetcherTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +96,12 @@
 		A88352402A6AA64A0058695A /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		A88352432A6AA7C10058695A /* Breed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Breed.swift; sourceTree = "<group>"; };
 		A88F63A52A73D14B003624B0 /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
+		A88F63B92A741ADF003624B0 /* MockAPIServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIServices.swift; sourceTree = "<group>"; };
+		A88F63BB2A741C54003624B0 /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
+		A88F63BD2A741DFC003624B0 /* Breed+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Breed+Stub.swift"; sourceTree = "<group>"; };
+		A88F63C22A742537003624B0 /* BreedJSONMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedJSONMock.swift; sourceTree = "<group>"; };
+		A88F63C52A742BFD003624B0 /* MockImageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockImageFetcher.swift; sourceTree = "<group>"; };
+		A88F63C92A742C77003624B0 /* ImageFetcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetcherTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +169,8 @@
 		4A7B7DA22A74113C0081A146 /* APIServices */ = {
 			isa = PBXGroup;
 			children = (
+				A88F63C12A742504003624B0 /* MockData */,
+				A88F63B82A741AD0003624B0 /* Mocks */,
 				4A7B7DA32A74117C0081A146 /* APIServicesTests.swift */,
 			);
 			path = APIServices;
@@ -270,6 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				4A7B7DA22A74113C0081A146 /* APIServices */,
+				A88F63C42A742BC2003624B0 /* ImageFetcher */,
 				A88352242A6A9FBE0058695A /* DogBreedTests.swift */,
 			);
 			path = DogBreedTests;
@@ -299,6 +314,41 @@
 				A88352432A6AA7C10058695A /* Breed.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		A88F63B82A741AD0003624B0 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				A88F63B92A741ADF003624B0 /* MockAPIServices.swift */,
+				A88F63BB2A741C54003624B0 /* MockURLProtocol.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		A88F63C12A742504003624B0 /* MockData */ = {
+			isa = PBXGroup;
+			children = (
+				A88F63BD2A741DFC003624B0 /* Breed+Stub.swift */,
+				A88F63C22A742537003624B0 /* BreedJSONMock.swift */,
+			);
+			path = MockData;
+			sourceTree = "<group>";
+		};
+		A88F63C42A742BC2003624B0 /* ImageFetcher */ = {
+			isa = PBXGroup;
+			children = (
+				A88F63C72A742C58003624B0 /* Mocks */,
+				A88F63C92A742C77003624B0 /* ImageFetcherTests.swift */,
+			);
+			path = ImageFetcher;
+			sourceTree = "<group>";
+		};
+		A88F63C72A742C58003624B0 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				A88F63C52A742BFD003624B0 /* MockImageFetcher.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -468,7 +518,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A88F63BE2A741DFC003624B0 /* Breed+Stub.swift in Sources */,
+				A88F63CA2A742C77003624B0 /* ImageFetcherTests.swift in Sources */,
 				4A7B7DA42A74117C0081A146 /* APIServicesTests.swift in Sources */,
+				A88F63C32A742537003624B0 /* BreedJSONMock.swift in Sources */,
+				A88F63BC2A741C54003624B0 /* MockURLProtocol.swift in Sources */,
+				A88F63BA2A741ADF003624B0 /* MockAPIServices.swift in Sources */,
+				A88F63C62A742BFD003624B0 /* MockImageFetcher.swift in Sources */,
 				A88352252A6A9FBE0058695A /* DogBreedTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
