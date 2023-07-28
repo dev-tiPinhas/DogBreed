@@ -35,6 +35,7 @@
 		A88352312A6A9FBE0058695A /* DogBreedUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88352302A6A9FBE0058695A /* DogBreedUITestsLaunchTests.swift */; };
 		A88352412A6AA64A0058695A /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88352402A6AA64A0058695A /* TabBarViewController.swift */; };
 		A88352442A6AA7C10058695A /* Breed.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88352432A6AA7C10058695A /* Breed.swift */; };
+		A88F63A62A73D14B003624B0 /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88F63A52A73D14B003624B0 /* UIAlertController+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,7 @@
 		A88352302A6A9FBE0058695A /* DogBreedUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogBreedUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A88352402A6AA64A0058695A /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		A88352432A6AA7C10058695A /* Breed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Breed.swift; sourceTree = "<group>"; };
+		A88F63A52A73D14B003624B0 /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				A800EE182A6EC59A00D15B9A /* URL+Extensions.swift */,
+				A88F63A52A73D14B003624B0 /* UIAlertController+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -439,6 +442,7 @@
 				4AA6EFDC2A732C7E00387951 /* DetailsViewModel.swift in Sources */,
 				A80CF2E22A701F9B008B7422 /* Endpoints.swift in Sources */,
 				4AAA5C852A71AE0300531B9F /* DogBreedListViewController+Extension.swift in Sources */,
+				A88F63A62A73D14B003624B0 /* UIAlertController+Extensions.swift in Sources */,
 				A80CF2DE2A700E39008B7422 /* DogBreedListViewController.swift in Sources */,
 				4A28F00A2A710B8A00C18750 /* DogListCellViewModel.swift in Sources */,
 				4AA6EFD32A72E1E900387951 /* SearchViewModel.swift in Sources */,

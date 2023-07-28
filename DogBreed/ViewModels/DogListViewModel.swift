@@ -29,6 +29,7 @@ final class DogListViewModel: DogListViewModelProtocol {
     struct Events {
         var handleDogsResults: (([Breed]) -> Void)?
         var handleLoading: ((Bool) -> Void)?
+        var handleErrors: ((Error) -> Void)?
     }
     
     var events: Events = Events()
@@ -53,6 +54,7 @@ final class DogListViewModel: DogListViewModelProtocol {
                 self.events.handleDogsResults?(self.items)
             case .failure(let error):
                 debugPrint(error)
+                self.events.handleErrors?(error)
             }
         }
     }

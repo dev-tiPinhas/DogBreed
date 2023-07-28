@@ -33,4 +33,11 @@ enum LocalizableKeys {
         static let origin = "details.origin.titleLabel"
         static let temperament = "details.temperament.titleLabel"
     }
+    
+    enum UIAlert {
+        static let title = "popup.title"
+        static let description = "popup.description"
+        static let okButton = "popup.okButton"
+        static let refreshButton = "popup.fetchAgain"
+    }
 }

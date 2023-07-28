@@ -30,7 +30,7 @@ extension DogBreedListViewController {
     enum Constants {
         static let defaultItemHeight: CGFloat = 250
         static let gridItemHeight: CGFloat = 200
-        static let collectionViewMargin: CGFloat = 50
-        static let collectionViewSpacing: CGFloat = 30
+        static let collectionViewMargin: CGFloat = 70
+        static let collectionViewSpacing: CGFloat = 20
     }
 }

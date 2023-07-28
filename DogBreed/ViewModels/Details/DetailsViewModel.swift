@@ -27,6 +27,7 @@ final class DetailsViewModel: DetailsViewModelProtocol {
     struct Events {
         var handleImageFetch: ((UIImage) -> Void)?
         var handleLoading: ((Bool) -> Void)?
+        var handleErrors: ((Error) -> Void)?
     }
     
     var events: Events = Events()
@@ -64,6 +65,7 @@ final class DetailsViewModel: DetailsViewModelProtocol {
                 switch result {
                 case .failure(let error):
                     debugPrint(error)
+                    self.events.handleErrors?(error)
                 case .success(let image):
                     self.events.handleImageFetch?(image)
                 }

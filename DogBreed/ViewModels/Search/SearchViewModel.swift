@@ -27,6 +27,7 @@ final class SearchViewModel: SearchViewModelProtocol {
     struct Events {
         var handleResults: (([Breed]) -> Void)?
         var handleLoading: ((Bool) -> Void)?
+        var handleErrors: ((Error) -> Void)?
     }
     
     var events: Events = Events()
@@ -52,6 +53,7 @@ final class SearchViewModel: SearchViewModelProtocol {
                 self.events.handleResults?(self.itemsToFilter)
             case .failure(let error):
                 debugPrint(error)
+                self.events.handleErrors?(error)
             }
         }
     }

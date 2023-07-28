@@ -117,6 +117,15 @@ final class SearchDogBreedViewController: UIViewController {
                 }
             }
         }
+        
+        viewModel.events.handleErrors = { [weak self] error in
+            DispatchQueue.main.async { [weak self] in
+                let alert = UIAlertController.makeAlert(error: error, labels: self?.labels ?? Labels(), completion: { [weak self] in
+                    self?.viewModel.fetchResults()
+                })
+                self?.present(alert, animated: true)
+            }
+        }
     }
 }
 

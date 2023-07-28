@@ -26,6 +26,8 @@ final class DogBreedListViewController: UIViewController {
             DogListCollectionViewCell.self,
             forCellWithReuseIdentifier: String(describing: DogListCollectionViewCell.self)
         )
+        collectionView.contentInset = .init(top: 0, left: 25, bottom: 0, right: 25)
+        collectionView.backgroundColor = .clear
         
         return collectionView
     }()
@@ -129,7 +131,10 @@ final class DogBreedListViewController: UIViewController {
     
     private func setupLayout() {
         title = labels.getLabel(with: LocalizableKeys.DogsList.title)
+        navigationController?.navigationBar.prefersLargeTitles = true
         
+        view.backgroundColor = .orange
+       
         // collectionView stuff
         collectionView.delegate = self
         collectionView.collectionViewLayout = defaultCollectionViewFlowLayout
@@ -171,6 +176,15 @@ final class DogBreedListViewController: UIViewController {
                 } else {
                     self.loadingSpinner.stopAnimating()
                 }
+            }
+        }
+        
+        viewModel.events.handleErrors = { [weak self] error in
+            DispatchQueue.main.async { [weak self] in
+                let alert = UIAlertController.makeAlert(error: error, labels: self?.labels ?? Labels(), completion: { [weak self] in
+                    self?.viewModel.fetchBreeds()
+                })
+                self?.present(alert, animated: true)
             }
         }
     }
@@ -227,7 +241,8 @@ final class DogBreedListViewController: UIViewController {
     
     @objc
     private func changeCollectionLayoutButtonSelected() {
-        changeCollectionLayoutButton.isEnabled = true
+        /// Disable button to avoid changing layout while performing the changes
+        changeCollectionLayoutButton.isEnabled = false
         isDefaultLayout = !isDefaultLayout
         
         changeCollectionLayoutButton.image = isDefaultLayout

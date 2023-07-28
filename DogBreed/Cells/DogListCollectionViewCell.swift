@@ -11,23 +11,14 @@ import UIKit
 final class DogListCollectionViewCell: UICollectionViewCell {
     // MARK: Properties
     
-    private lazy var mainView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.distribution = .fill
-        stackView.spacing = 0
-        stackView.alignment = .center
-        
-        return stackView
-    }()
-    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.backgroundColor = .clear
+        label.backgroundColor = .lightText
         label.numberOfLines = 0
+        label.clipsToBounds = true
+        label.layer.masksToBounds = true
         
         return label
     }()
@@ -35,7 +26,8 @@ final class DogListCollectionViewCell: UICollectionViewCell {
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         
         return imageView
     }()
@@ -61,28 +53,35 @@ final class DogListCollectionViewCell: UICollectionViewCell {
         titleLabel.text = ""
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        titleLabel.layer.cornerRadius = titleLabel.frame.height / 2
+        imageView.layer.cornerRadius = imageView.frame.height / 2
+    }
+    
     // MARK: Setup functions
     private func initialSetup() {
-        backgroundColor = .quaternaryLabel
+        backgroundColor = .lightText
+        
         layer.cornerRadius = 20
-        clipsToBounds = true
+        layer.masksToBounds = false
     }
     
     private func setupConstraints() {
-        addSubview(mainView)
+        addSubview(imageView)
+        imageView.addSubview(titleLabel)
         
         NSLayoutConstraint.activate([
-            mainView.topAnchor.constraint(equalTo: topAnchor, constant: 15),
-            mainView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
-            mainView.leftAnchor.constraint(equalTo: leftAnchor, constant: 15),
-            mainView.rightAnchor.constraint(equalTo: rightAnchor, constant: -15),
+            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+            imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+            imageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 5),
+            imageView.rightAnchor.constraint(equalTo: rightAnchor, constant: -5),
             
-            titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 30)
+            titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 30),
+            titleLabel.leftAnchor.constraint(equalTo: imageView.leftAnchor, constant: 20),
+            titleLabel.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -50),
+            titleLabel.rightAnchor.constraint(equalTo: imageView.rightAnchor, constant: -20)
         ])
-        
-        
-        mainView.addArrangedSubview(imageView)
-        mainView.addArrangedSubview(titleLabel)
     }
     
     private func setupEvent() {
