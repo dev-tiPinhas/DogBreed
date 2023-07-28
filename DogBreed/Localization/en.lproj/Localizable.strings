@@ -19,3 +19,13 @@
 // MARK: SEARCH FOR BREED SCREEN
 "searchBreeds.title" = "Search";
 "searchBreeds.searchPlaceHolder" = "Search for a Breed name";
+"searchBreeds.breedName.titleLabel" = "Breed Name";
+"searchBreeds.breedGroup.titleLabel" = "Breed Group";
+"searchBreeds.origin.titleLabel" = "Origin";
+
+
+// MARK: BREED DETAILS SCREEN
+"details.title" = "Breed Details";
+"details.breedCategory.titleLabel" = "Breed Category";
+"details.origin.titleLabel" = "Origin";
+"details.temperament.titleLabel" = "Temperament";

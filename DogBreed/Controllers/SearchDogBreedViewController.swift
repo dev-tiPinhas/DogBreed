@@ -19,6 +19,8 @@ final class SearchDogBreedViewController: UIViewController {
         tableView.estimatedRowHeight = 500
         tableView.rowHeight = UITableView.automaticDimension
         tableView.backgroundColor = .clear
+        tableView.separatorStyle = .singleLine
+        tableView.separatorColor = .darkGray
         
         return tableView
     }()
@@ -141,7 +143,13 @@ extension SearchDogBreedViewController: UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // open details VC
+        // It's ugly when it stays selected
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let detailsViewModel = viewModel.makeDetailsViewModel(for: indexPath)
+        
+        present(DetailsViewController(viewModel: detailsViewModel), animated: true)
+        
     }
 }
 

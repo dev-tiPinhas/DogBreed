@@ -22,5 +22,15 @@ enum LocalizableKeys {
     enum SearchBreeds {
         static let title = "searchBreeds.title"
         static let placeHolder = "searchBreeds.searchPlaceHolder"
+        static let breedName = "searchBreeds.breedName.titleLabel"
+        static let breedGroup = "searchBreeds.breedGroup.titleLabel"
+        static let origin = "searchBreeds.origin.titleLabel"
+    }
+    
+    enum BreedDetails {
+        static let title = "details.title"
+        static let breedCategory = "details.breedCategory.titleLabel"
+        static let origin = "details.origin.titleLabel"
+        static let temperament = "details.temperament.titleLabel"
     }
 }

@@ -11,6 +11,7 @@ protocol DogListViewModelProtocol {
     func fetchBreeds()
     func sortElements(sortType: DogListViewModel.SortType)
     func makeCellViewModel(for indexPath: IndexPath) -> DogListCellViewModel
+    func makeDetailsViewModel(for indexPath: IndexPath) -> DetailsViewModelProtocol
     var events: DogListViewModel.Events { get set }
 }
 
@@ -56,12 +57,25 @@ final class DogListViewModel: DogListViewModelProtocol {
         }
     }
     
+    // MARK: Make ViewModels
     func makeCellViewModel(for indexPath: IndexPath) -> DogListCellViewModel {
         let breed = items[indexPath.row]
     
         return DogListCellViewModel(
             image: breed.image,
             title: breed.name ?? ""
+        )
+    }
+    
+    func makeDetailsViewModel(for indexPath: IndexPath) -> DetailsViewModelProtocol {
+        let breed = items[indexPath.row]
+        
+        return DetailsViewModel(
+            breedName: breed.name,
+            breedCategory: breed.bredFor,
+            temperament: breed.temperament,
+            origin: breed.origin,
+            image: breed.image
         )
     }
     

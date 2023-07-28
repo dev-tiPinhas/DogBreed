@@ -46,7 +46,10 @@ final class DogListCellViewModel: DogListCellViewModelProtocol {
               let url = URL(string: urlString)
         else { return }
         
-        imageFetcher.fetchImage(with: url, cacheKey: image.id) { [weak self] result in
+        imageFetcher.fetchImage(
+            with: url,
+            cacheKey: image.id
+        ) { [weak self] result in
             guard let self else { return }
             switch result {
             case .failure(let error):

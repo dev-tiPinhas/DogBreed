@@ -18,7 +18,9 @@ extension DogBreedListViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO: if I have time present modaly the detailVC
+        let detailsViewModel = viewModel.makeDetailsViewModel(for: indexPath)
+        
+        present(DetailsViewController(viewModel: detailsViewModel), animated: true)
     }
 }
 

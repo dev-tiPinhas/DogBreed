@@ -23,7 +23,8 @@ final class ImageFetcher: ImageFetcherProtocol {
         cacheKey: String?,
         completion: @escaping ((Result<UIImage, Error>) -> Void)
     ) {
-        let options: [KingfisherOptionsInfoItem] = [.cacheOriginalImage]
+        // We were using .cacheOriginalImage but the after fetching the first time an image we would never fetch it again -> problems in the details screen 
+        let options: [KingfisherOptionsInfoItem] = [.forceRefresh]
         
         let resource: Kingfisher.KF.ImageResource = Kingfisher.KF.ImageResource(
             downloadURL: url,
